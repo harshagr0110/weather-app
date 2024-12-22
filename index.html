@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bodybackground">
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg p-3 mb-0">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg p-3 mb-5">
         <div class="container-fluid">
             <div class="logo" style="margin-right: 13px;">
                 <img src="weatherlogo.png" height="50px" width="50px" alt="Logo" class="img-fluid">
@@ -26,21 +26,10 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Weather Options
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Current Weather</a></li>
-                            <li><a class="dropdown-item" href="#">Weather Forecast</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Weather Maps</a></li>
-                        </ul>
+                        <a class="nav-link" href="newspage.html">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="quiz.html">Give a Quiz</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search" id="weatherForm">
@@ -50,12 +39,16 @@
             </div>
         </div>
     </nav>
-    <div class="container mt-5">
+    <div class="ticker-container bg-dark text-white py-2" id="tickerContainer">
+        <marquee>Breaking Weather News: Storm approaching the east coast. Stay safe! | Rain expected in New York tomorrow. | Heatwave in California this weekend.</marquee>
+    </div>
+    <div class="container mt-5" id="mainContent">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title" id="city1Name">City 1</h5>
+                        <img id="city1Icon" src="" alt="Weather Icon" class="weather-icon">
                         <p class="card-text" id="city1Weather">Weather details for City 1 will be displayed here.</p>
                     </div>
                 </div>
@@ -64,6 +57,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title" id="city2Name">City 2</h5>
+                        <img id="city2Icon" src="" alt="Weather Icon" class="weather-icon">
                         <p class="card-text" id="city2Weather">Weather details for City 2 will be displayed here.</p>
                     </div>
                 </div>
@@ -73,23 +67,14 @@
     <div id="frontPageContent">
         <div class="container2 mt-5">
             <div id="localDateTime" class="text-center mb-4"></div>
-            <div class="cards">
-                <div class="card red">
-                    <p class="tip">Hover Me</p>
-                    <p class="second-text">Lorem Ipsum</p>
-                </div>
-                <div class="card blue">
-                    <p class="tip">Hover Me</p>
-                    <p class="second-text">Lorem Ipsum</p>
-                </div>
-                <div class="card green">
-                    <p class="tip">Hover Me</p>
-                    <p class="second-text">Lorem Ipsum</p>
-                </div>
-            </div>
-            <div class="ads">
-                <img src="https://via.placeholder.com/800x200" alt="Ad 1">
-                <img src="https://via.placeholder.com/800x200" alt="Ad 2">
+            <div class="cards"></div>
+        </div>
+    </div>
+    <div class="row mt-5" id="funFactContainer">
+        <div class="col-md-12">
+            <div class="alert alert-info text-center">
+                <h4 class="alert-heading">Fun Fact</h4>
+                <p id="funFact">Did you know? The highest temperature ever recorded on Earth was 56.7°C (134°F) in Furnace Creek, California in 1913.</p>
             </div>
         </div>
     </div>
@@ -123,14 +108,38 @@
         <h2 class="text-center mb-4" style="color: #0d253a; font-family: 'Comic Sans MS', sans-serif; font-weight: bold; text-transform: uppercase; padding: 10px; border-radius: 5px;">Weather Forecast</h2>
         <div class="swiper-container">
             <div class="swiper-wrapper" id="forecastContainer"></div>
-            <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
-            <!-- Add Navigation -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
     </div>
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container text-center">
+            <p id="footerGreeting" class="mb-1">Have a great day ahead!</p>
+            <p id="footerTime"></p>
+        </div>
+    </footer>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function updateTime() {
+                const now = new Date();
+                const formattedTime = now.toLocaleTimeString();
+                document.getElementById("footerTime").textContent = `Current Time: ${formattedTime}`;
+            }
+            updateTime();
+            setInterval(updateTime, 1000); // Update every second
+        });
+    </script>
+    <style>
+        #cityInput {
+            width: 300px;
+        }
+        .ticker-container {
+            margin-top: 20px;
+        }
+       
+    </style>
 </body>
 </html>
