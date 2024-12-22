@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz Mania</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bodybackground">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg p-3 mb-5">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-uppercase" style="font-family: Calibri, 'Trebuchet MS', sans-serif;">
+                QUIZ MANIA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        <div class="container mt-5 text-center" style="max-width: 85%;">
+            <button class="btn btn-primary w-25" id="startQuizBtn">RESTART YOUR QUIZ!</button>
+            <div id="quizContainer" class="mt-4"></div>
+        </div>
+            
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybby2Jb5js15sAy1UaljIpgXou2CKABzwI1P6FynfuENdANIr" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-QntoWRvxJkVgMVp82Su/rV8ksm7D/yp2tBvKnNoEjQiKKmFuhRYXeLlWL9XwKrHC" crossorigin="anonymous"></script>
+        <script src="quiz.js"></script>
+ 
+</body>
+<style>
+    .card {
+       
+        width: 300px; /* Larger fixed width for square cards */
+        background: linear-gradient(135deg, #efefef); /* Gradient background */
+
+        height: 300px; /* Larger fixed height for square cards */
+        display: inline-block;
+        margin: 10px; /* Margin around cards */
+
+        border-radius: 10px; /* Rounded corners */
+    }
+    .card-title {
+        padding-bottom: 40px;
+        font-size: 24px; /* Larger title font size */
+        font-style: italic;
+       
+    }
+    .card-body {
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 15px;
+    }
+    .form-check-label {
+        margin-bottom: 0%;
+        font-weight: bold; /* Make options bold */
+        font-size: 18px; /* Increase font size */
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .btn-submit {
+        display: block;
+        margin: 20px auto; /* Center the button */
+        width: 200px;
+    }
+   
+    
+
+</style>
+
+</html>

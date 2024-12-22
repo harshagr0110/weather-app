@@ -1,47 +1,84 @@
-const url = 'https://google-api31.p.rapidapi.com/';
-const options = {
-    method: 'POST',
-    headers: {
-        'x-rapidapi-key': '7cc9136ademshadd6b39264aac6bp17d871jsnfa9b5fe1221c',
-        'x-rapidapi-host': 'google-api31.p.rapidapi.com',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        text: 'Europe',
-        region: 'wt-wt',
-        max_results: 25
-    })
-};
+const apiKey = 'pub_63021ea2da065c9da50358f89ecbc0ce775c2'; // Verify this key
 
 async function fetchNews() {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(`https://newsdata.io/api/1/news?apikey=${apiKey}&q=weather`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
         const result = await response.json();
-        displayNews(result);
+        displayNews(result.results); // Use 'results' array
         console.log(result);
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching news:', error);
     }
 }
 
-function displayNews(news) {
+function extractImportantInfo(article) {
+    return {
+        title: article.title,
+        description: article.description,
+        url: article.link,
+        imageUrl: article.image_url,
+        sourceName: article.source_name,
+        pubDate: article.pubDate
+    };
+}
+
+function displayNews(articles) {
     const newsSection = document.getElementById('newsSection');
     newsSection.innerHTML = ''; // Clear previous content
-
-    if (news.news) {
-        news.news.forEach(article => {
+    if (articles) {
+        articles.forEach(article => {
+            const info = extractImportantInfo(article);
             const newsCard = document.createElement('div');
-            newsCard.className = 'col-md-4 mb-4';
-            newsCard.innerHTML = `
-                <div class="card">
-                    <img src="${article.image}" class="card-img-top" alt="${article.title}">
-                    <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text">${article.description}</p>
-                        <a href="${article.url}" class="btn btn-primary" target="_blank">Read More</a>
-                    </div>
-                </div>
-            `;
+            newsCard.className = 'news-card mb-4';
+            newsCard.style.display = 'flex';
+            newsCard.style.alignItems = 'center';
+            newsCard.style.cursor = 'pointer';
+            newsCard.style.borderBottom = '1px solid #ccc';
+            newsCard.style.paddingBottom = '10px';
+            newsCard.style.marginBottom = '10px';
+            newsCard.onclick = () => window.open(info.url || '#', '_blank');
+
+            const newsContent = document.createElement('div');
+            newsContent.style.flex = '1';
+            newsContent.style.paddingRight = '10px';
+
+            const newsTitle = document.createElement('h2');
+            newsTitle.style.fontFamily = "'Times New Roman', serif";
+            newsTitle.style.fontSize = '1.5em';
+            newsTitle.style.fontWeight = 'bold';
+            newsTitle.textContent = info.title || 'No title';
+
+            const newsDescription = document.createElement('p');
+            newsDescription.textContent = info.description || 'No description available.';
+
+            const newsSource = document.createElement('p');
+            newsSource.style.fontStyle = 'italic';
+            newsSource.textContent = `Source: ${info.sourceName}`;
+
+            const newsDate = document.createElement('p');
+            newsDate.style.fontStyle = 'italic';
+            newsDate.textContent = `Published on: ${new Date(info.pubDate).toLocaleString()}`;
+
+            newsContent.appendChild(newsTitle);
+            newsContent.appendChild(newsDescription);
+            newsContent.appendChild(newsSource);
+            newsContent.appendChild(newsDate);
+            newsCard.appendChild(newsContent);
+
+            if (info.imageUrl) {
+                const newsImage = document.createElement('img');
+                newsImage.src = info.imageUrl;
+                newsImage.alt = 'News Image';
+                newsImage.style.width = '150px'; // Increased width
+                newsImage.style.height = '150px'; // Increased height
+                newsImage.style.objectFit = 'cover';
+                newsImage.style.marginLeft = '10px';
+                newsCard.appendChild(newsImage);
+            }
+
             newsSection.appendChild(newsCard);
         });
     } else {
@@ -49,4 +86,5 @@ function displayNews(news) {
     }
 }
 
-fetchNews();
+// Fetch news when the page loads
+document.addEventListener('DOMContentLoaded', fetchNews);
